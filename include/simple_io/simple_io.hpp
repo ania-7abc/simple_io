@@ -22,6 +22,16 @@ class SimpleIO
         file.close();
     }
 
+    template <typename... Args> void SimpleIO::append(const std::string_view &fmt, const std::string &data, Args &&...args)
+    {
+        std::string path = std::vformat(fmt, std::make_format_args(std::forward<Args>(args)...));
+        std::ofstream file;
+        file.exceptions(std::ios::failbit | std::ios::badbit);
+        file.open(path, std::ios::app);
+        file << data;
+        file.close();
+    }
+
     template <typename... Args> static auto read(const std::string_view &fmt, Args &&...args) -> std::string
     {
         std::string path = std::vformat(fmt, std::make_format_args(std::forward<Args>(args)...));
