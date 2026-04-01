@@ -22,7 +22,7 @@ class SimpleIO
         file.close();
     }
 
-    template <typename... Args> void SimpleIO::append(const std::string_view &fmt, const std::string &data, Args &&...args)
+    template <typename... Args> static void append(const std::string_view &fmt, const std::string &data, Args &&...args)
     {
         std::string path = std::vformat(fmt, std::make_format_args(std::forward<Args>(args)...));
         std::ofstream file;
